@@ -65,6 +65,11 @@ public:
         return (res[0] << 24 | res[1] << 16 | res[2] << 8 | res[3]);
     }
 
+    static void Uncompress(u32 _c, __m128& _q)
+    {
+
+    }
+
 private:
     static u8 PackNormalizedFloat(float _f)
     {
