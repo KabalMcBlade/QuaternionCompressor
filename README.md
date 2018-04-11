@@ -2,6 +2,10 @@
 
 A class used to compress quaternion, it is self included in one header, the QuaternionCompressor.h
 
+## Important
+
+For now it works just iwth x86 architecture dure a couple of mmx call that actually doesn't exists in the x64 architecture!
+
 ## Usage
 
 Very easy to use, is a "Brutal" way but enough for some uses.
