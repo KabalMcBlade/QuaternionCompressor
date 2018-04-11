@@ -9,6 +9,9 @@ Very easy to use, is a "Brutal" way but enough for some uses.
 - Call QuaternionCompressor::Compress and pass 4 quaternion parameters in order to get the 32 bit compressed value 
 - Call QuaternionCompressor::Uncompress passing the compressed value and the 4 quaternion parameters in output to get back the quaternion itself.
 
+The function now support SIMD version of a quaternion: _m128
+(WORK IN PROGRESS, for now support only the compression!)
+
 ## Test
 
 You can see the test in main.cpp file
