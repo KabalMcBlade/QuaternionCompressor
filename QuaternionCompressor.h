@@ -51,14 +51,14 @@ public:
 
     static u32 Compress(const __m128& _q)
     {
-        static MEMORY_ALIGNMENT_16 const __m128 multiplier{ _127, _127, _127, _127 };
+        static MEMORY_ALIGNMENT_16 const __m128 multiplier127 { _127, _127, _127, _127 };
 
-        const __m128 mul = _mm_mul_ps(_q, multiplier);
+        const __m128 mul = _mm_mul_ps(_q, multiplier127);
         const __m128 rnd = _mm_round_ps(mul, 2);
         const __m64 ird = _mm_cvtps_pi8(rnd);
 
         u8 res[4];
-        memcpy(&res[0], &ird.m64_i8[0], sizeof(u8) * 4);
+        memcpy(&res[0], &ird, sizeof(u8) * 4);
 
         _mm_empty();    // clear multimedia tag: warning C4799
 
@@ -67,7 +67,15 @@ public:
 
     static void Uncompress(u32 _c, __m128& _q)
     {
+        const s8 w = (_c & 0xff);
+        const s8 z = ((_c >> 8) & 0xff);
+        const s8 y = ((_c >> 16) & 0xff);
+        const s8 x = ((_c >> 24) & 0xff);
 
+        static MEMORY_ALIGNMENT_16 const __m128 multiplier1Div127{ _1_Div_127, _1_Div_127, _1_Div_127, _1_Div_127 };
+        const __m128i srci = _mm_set_epi32(w, z, y, x);
+        const __m128  flt = _mm_cvtepi32_ps(srci);
+        _q = _mm_mul_ps(flt, multiplier1Div127);
     }
 
 private:

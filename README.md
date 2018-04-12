@@ -4,7 +4,7 @@ A class used to compress quaternion, it is self included in one header, the Quat
 
 ## Important
 
-For now it works just iwth x86 architecture dure a couple of mmx call that actually doesn't exists in the x64 architecture!
+For now it works only with x86 architecture due a couple of MMX call that actually doesn't exists in the x64 architecture!
 
 ## Usage
 
@@ -14,7 +14,6 @@ Very easy to use, is a "Brutal" way but enough for some uses.
 - Call QuaternionCompressor::Uncompress passing the compressed value and the 4 quaternion parameters in output to get back the quaternion itself.
 
 The function now support SIMD version of a quaternion: _m128
-(WORK IN PROGRESS, for now support only the compression!)
 
 ## Test
 

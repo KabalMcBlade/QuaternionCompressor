@@ -37,13 +37,19 @@ int main()
 
     std::cout << "SSE VERSION" << std::endl;
 
-    std::cout << "{ 0.852, -0.001, -0.496, 0.165 }" << std::endl;
+    __m128 qSSE = _mm_setr_ps(0.852f, -0.001f, -0.496f,  0.165f);
 
-    const __m128 qSSE = _mm_setr_ps(0.852f, -0.001f, -0.496f,  0.165f);
+    float *val = (float*)&qSSE;
+    std::cout << "{ " << val[0] << ", " << val[1] << ", " << val[2] << ", " << val[3] << " }" << std::endl;
 
     u32 cqSSE = QuaternionCompressor::Compress(qSSE);
 
     std::cout << cqSSE << std::endl;
+
+    QuaternionCompressor::Uncompress(cqSSE, qSSE);
+
+    val = (float*)&qSSE;
+    std::cout << "{ " << val[0] << ", " << val[1] << ", " << val[2] << ", " << val[3] << " }" << std::endl;
 
     getchar();
 
