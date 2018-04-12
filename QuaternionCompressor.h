@@ -55,12 +55,13 @@ public:
 
         const __m128 mul = _mm_mul_ps(_q, multiplier127);
         const __m128 rnd = _mm_round_ps(mul, 2);
-        const __m64 ird = _mm_cvtps_pi8(rnd);
+        const __m128i ird = _mm_cvtps_epi32(rnd);
 
         u8 res[4];
-        memcpy(&res[0], &ird, sizeof(u8) * 4);
-
-        _mm_empty();    // clear multimedia tag: warning C4799
+        res[0] = _mm_cvtsi128_si32(_mm_shuffle_epi32(ird, _MM_SHUFFLE(0, 0, 0, 0)));
+        res[1] = _mm_cvtsi128_si32(_mm_shuffle_epi32(ird, _MM_SHUFFLE(1, 1, 1, 1)));
+        res[2] = _mm_cvtsi128_si32(_mm_shuffle_epi32(ird, _MM_SHUFFLE(2, 2, 2, 2)));
+        res[3] = _mm_cvtsi128_si32(_mm_shuffle_epi32(ird, _MM_SHUFFLE(3, 3, 3, 3)));
 
         return (res[0] << 24 | res[1] << 16 | res[2] << 8 | res[3]);
     }
